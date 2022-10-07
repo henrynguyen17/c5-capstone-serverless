@@ -1,7 +1,7 @@
 # TODO: Change the name of the org 
 org: henrynguyen17
-app: c5-capstone-serverless-app
-service: c5-capstone-serverless-app
+app: serverless-todo-app
+service: serverless-todo-app
 
 plugins:
   - serverless-webpack
