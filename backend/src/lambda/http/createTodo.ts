@@ -15,18 +15,9 @@ export const handler = middy(
     
     try {
       const newTodo: CreateTodoRequest = JSON.parse(event.body)
-      
-      // TODO: Implement creating a new TODO item
-      if(newTodo.name == "" || newTodo.name == null){
-        return {
-          statusCode: 422,
-          body: JSON.stringify({
-            "message": "Task is required"
-          })
-        }
-      }
       const user = getUserId(event);
       const todo = await createTodo(newTodo,user)
+      
       logger.info("## CREATE TODO SUCCESSFULLY ##")
       return {
         statusCode: 201,

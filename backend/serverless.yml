@@ -1,12 +1,14 @@
 # TODO: Change the name of the org 
 org: henrynguyen17
-app: serverless-todo-app
-service: serverless-todo-app
+app: c5-capstone-serverless-app
+service: c5-capstone-serverless-app
 
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
   - serverless-plugin-tracing
+  # - serverless-reqvalidator-plugin
+  # - serverless-aws-documentation
 
 package:
   individually: false
@@ -28,7 +30,7 @@ provider:
   environment:
     TODOS_TABLE: Todos-${self:provider.stage}
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
-    ATTACHMENT_S3_BUCKET: serverless-c4-todo-images-${self:provider.stage}
+    ATTACHMENT_S3_BUCKET: hoangnx11-c5-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
 
   logs:
@@ -81,7 +83,7 @@ functions:
           cors: true
           authorizer: Auth
           request:
-            schemas:
+            schema:
               application/json: ${file(models/create-todo-model.json)}
     iamRoleStatementsInherit: true
     iamRoleStatements:
@@ -100,6 +102,9 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: Auth
+          request:
+            schema:
+              application/json: ${file(models/update-todo-model.json)}
     iamRoleStatementsInherit: true
     iamRoleStatements:
       - Effect: Allow
